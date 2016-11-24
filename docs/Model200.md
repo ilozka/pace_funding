@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Integer** |  | [optional] [default to 1]
-**message** | **String** |  | [optional] [default to &quot;Success message&quot;]
+**message** | **Array&lt;String&gt;** | Success or error message | [optional] 
+**status** | **Integer** | 1 for success, 0 for API response error or invalid parameters | [optional] [default to 1]
 
 

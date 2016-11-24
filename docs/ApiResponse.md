@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **Integer** |  | [optional] 
+**message** | **Array&lt;String&gt;** |  | [optional] 
 **type** | **String** |  | [optional] 
-**message** | **String** |  | [optional] 
 
 
