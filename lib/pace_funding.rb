@@ -41,6 +41,7 @@ require 'pace_funding/models/payment_calculation_response'
 require 'pace_funding/models/payment_data'
 require 'pace_funding/models/payment_formula_data'
 require 'pace_funding/models/post_application_response'
+require 'pace_funding/models/project_status_response'
 require 'pace_funding/models/salesperson_detail'
 require 'pace_funding/models/yearly_payment_data'
 

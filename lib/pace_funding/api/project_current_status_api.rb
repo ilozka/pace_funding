@@ -38,10 +38,10 @@ module PaceFunding
     # @param salesperson_code Salesperson Code
     # @param project_id Project Id
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [ProjectStatusResponse]
     def check_project_status_post(auth_key, contractor_code, salesperson_code, project_id, opts = {})
-      check_project_status_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, opts)
-      return nil
+      data, _status_code, _headers = check_project_status_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, opts)
+      return data
     end
 
     #  
@@ -51,7 +51,7 @@ module PaceFunding
     # @param salesperson_code Salesperson Code
     # @param project_id Project Id
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    # @return [Array<(ProjectStatusResponse, Fixnum, Hash)>] ProjectStatusResponse data, response status code and response headers
     def check_project_status_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: ProjectCurrentStatusApi.check_project_status_post ..."
@@ -96,7 +96,8 @@ module PaceFunding
         :query_params => query_params,
         :form_params => form_params,
         :body => post_body,
-        :auth_names => auth_names)
+        :auth_names => auth_names,
+        :return_type => 'ProjectStatusResponse')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ProjectCurrentStatusApi#check_project_status_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end

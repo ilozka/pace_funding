@@ -25,18 +25,15 @@ require 'date'
 
 module PaceFunding
 
-  class PostApplicationResponse
+  class ProjectStatusResponse
     # Success or error message
     attr_accessor :message
 
     # 1 for success, 0 for API response error or invalid parameters
     attr_accessor :status
 
-    # X for FNI hit.
-    attr_accessor :fni_status
-
-    # Customer detail.
-    attr_accessor :customer_detail
+    # Current project status id
+    attr_accessor :project_current_status
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -44,8 +41,7 @@ module PaceFunding
       {
         :'message' => :'message',
         :'status' => :'status',
-        :'fni_status' => :'fni_status',
-        :'customer_detail' => :'customer_detail'
+        :'project_current_status' => :'projectCurrentStatus'
       }
     end
 
@@ -54,8 +50,7 @@ module PaceFunding
       {
         :'message' => :'Array<String>',
         :'status' => :'Integer',
-        :'fni_status' => :'String',
-        :'customer_detail' => :'CustomerDetail'
+        :'project_current_status' => :'Integer'
       }
     end
 
@@ -79,14 +74,8 @@ module PaceFunding
         self.status = 1
       end
 
-      if attributes.has_key?(:'fni_status')
-        self.fni_status = attributes[:'fni_status']
-      else
-        self.fni_status = ""
-      end
-
-      if attributes.has_key?(:'customer_detail')
-        self.customer_detail = attributes[:'customer_detail']
+      if attributes.has_key?(:'projectCurrentStatus')
+        self.project_current_status = attributes[:'projectCurrentStatus']
       end
 
     end
@@ -111,8 +100,7 @@ module PaceFunding
       self.class == o.class &&
           message == o.message &&
           status == o.status &&
-          fni_status == o.fni_status &&
-          customer_detail == o.customer_detail
+          project_current_status == o.project_current_status
     end
 
     # @see the `==` method
@@ -124,7 +112,7 @@ module PaceFunding
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [message, status, fni_status, customer_detail].hash
+      [message, status, project_current_status].hash
     end
 
     # Builds the object from hash
