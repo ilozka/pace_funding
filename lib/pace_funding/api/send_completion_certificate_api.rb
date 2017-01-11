@@ -41,10 +41,10 @@ module PaceFunding
     # @option opts [String] :fo_client_id First Property Owner client user id for docusign embedded signing. 
     # @option opts [String] :so_client_id Second Property Owner client user id for docusign embedded signing. 
     # @option opts [String] :co_client_id Contractor client user id for docusign embedded signing
-    # @return [nil]
+    # @return [SendCompletionCertificateResponse]
     def send_completion_certificate_post(auth_key, contractor_code, salesperson_code, project_id, opts = {})
-      send_completion_certificate_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, opts)
-      return nil
+      data, _status_code, _headers = send_completion_certificate_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, opts)
+      return data
     end
 
     # Send Completion Certificate
@@ -57,7 +57,7 @@ module PaceFunding
     # @option opts [String] :fo_client_id First Property Owner client user id for docusign embedded signing. 
     # @option opts [String] :so_client_id Second Property Owner client user id for docusign embedded signing. 
     # @option opts [String] :co_client_id Contractor client user id for docusign embedded signing
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    # @return [Array<(SendCompletionCertificateResponse, Fixnum, Hash)>] SendCompletionCertificateResponse data, response status code and response headers
     def send_completion_certificate_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: SendCompletionCertificateApi.send_completion_certificate_post ..."
@@ -105,7 +105,8 @@ module PaceFunding
         :query_params => query_params,
         :form_params => form_params,
         :body => post_body,
-        :auth_names => auth_names)
+        :auth_names => auth_names,
+        :return_type => 'SendCompletionCertificateResponse')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: SendCompletionCertificateApi#send_completion_certificate_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end

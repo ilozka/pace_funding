@@ -1,0 +1,2216 @@
+{
+    "basePath": "webservices",
+    "definitions": {
+        "200": {
+            "properties": {
+                "message": {
+                    "default": "Success message",
+                    "description": "Success or error message",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "status": {
+                    "default": 1,
+                    "description": "1 for success, 0 for API response error or invalid parameters",
+                    "format": "int64",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "500": {
+            "properties": {
+                "message": {
+                    "default": "text message",
+                    "description": "Error message",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "status": {
+                    "default": 0,
+                    "format": "int64",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "AddressEligibilityResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "projectId": {
+                            "description": "If property address is valid, PACE Tool creates a new project in PACE system and provides this project id. This Project ID can be used in other API calls to refer to this particular project.",
+                            "format": "int64",
+                            "type": "integer"
+                        },
+                        "ExpectedAmountData": {
+                            "description": "If the property is eligible for pace funding, the API returns additional data points.",
+                            "$ref": "#/definitions/ExpectedAmountData"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "AddContractorResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "userDetail": {
+                            "$ref": "#/definitions/ContractorDetail"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "AddSalespersonResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "userDetail": {
+                            "$ref": "#/definitions/SalespersonDetail"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "PaymentCalculationResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "payment_data": {
+                            "description": "Payment data without tax credit.",
+                            "$ref": "#/definitions/PaymentData"
+                        },
+                        "formula_data": {
+                            "description": "Various fees and other parameters in PACE System.",
+                            "$ref": "#/definitions/PaymentFormulaData"
+                        },
+                        "payment_data_re_amortization": {
+                            "description": "Payment data with tax credit.",
+                            "$ref": "#/definitions/PaymentData"
+                        },
+                        "apr": {
+                            "default": 0,
+                            "description": "APR for this amortization schedule and these payment terms.",
+                            "format": "float",
+                            "type": "number"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "PostApplicationResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "fni_status": {
+                            "default": "",
+                            "description": "X for FNI hit.",
+                            "type": "string"
+                        },
+                        "customer_detail": {
+                            "description": "Customer detail.",
+                            "$ref": "#/definitions/CustomerDetail"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "PostProjectCancellationResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "PostProjectFileResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "ProjectStatusResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "projectCurrentStatus": {
+                            "default": "",
+                            "description": "Current project status id",
+                            "format": "int64",
+                            "type": "integer"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "SendCompletionCertificateResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "envelope_id": {
+                            "default": "",
+                            "description": "Docusign envelope id.",
+                            "type": "string"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "SendContractResponse": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/200"
+                },
+                {
+                    "properties": {
+                        "envelope_id": {
+                            "default": "",
+                            "description": "Docusign envelope id.",
+                            "type": "string"
+                        }
+                    }
+                }
+            ],
+            "type": "object"
+        },
+        "ContractorDetail": {
+            "properties": {
+                "title": {
+                    "default": "",
+                    "type": "string"
+                },
+                "first_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "last_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "phone": {
+                    "default": "",
+                    "type": "string"
+                },
+                "mobile": {
+                    "default": "",
+                    "type": "string"
+                },
+                "email": {
+                    "default": "",
+                    "type": "string"
+                },
+                "probationary": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "company_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "website": {
+                    "default": "",
+                    "type": "string"
+                },
+                "company_phone": {
+                    "default": "",
+                    "type": "string"
+                },
+                "license_number": {
+                    "default": "",
+                    "type": "string"
+                },
+                "license_state": {
+                    "default": "",
+                    "type": "string"
+                },
+                "license_expiration": {
+                    "default": "",
+                    "type": "string"
+                },
+                "company_address": {
+                    "default": "",
+                    "type": "string"
+                },
+                "company_address2": {
+                    "default": "",
+                    "type": "string"
+                },
+                "company_city": {
+                    "default": "",
+                    "type": "string"
+                },
+                "company_state": {
+                    "default": "",
+                    "type": "string"
+                },
+                "company_pincode": {
+                    "default": "",
+                    "type": "string"
+                },
+                "project_type": {
+                    "default": "",
+                    "type": "string"
+                },
+                "administrator_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "user_code": {
+                    "default": "",
+                    "type": "string"
+                },
+                "id": {
+                    "format": "int64",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "CustomerDetail": {
+            "properties": {
+                "projectId": {
+                    "default": "",
+                    "type": "string"
+                },
+                "property_type": {
+                    "default": "",
+                    "type": "string"
+                },
+                "property_ownership": {
+                    "default": "",
+                    "type": "string"
+                },
+                "property_ownership_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_first_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_last_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_suffix": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_phone": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_email": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_same_as": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_address": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_unit": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_city": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_state": {
+                    "default": "",
+                    "type": "string"
+                },
+                "fo_zipcode": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_first_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_last_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_suffix": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_phone": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_email": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_same_as": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_address": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_unit": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_city": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_state": {
+                    "default": "",
+                    "type": "string"
+                },
+                "so_zipcode": {
+                    "default": "",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ExpectedAmountData": {
+            "properties": {
+                "message": {
+                    "default": "",
+                    "type": "string"
+                },
+                "error": {
+                    "default": 0,
+                    "format": "int64",
+                    "type": "integer"
+                },
+                "amount": {
+                    "default": 0,
+                    "description": "Estimated approved amount for this property address.",
+                    "format": "float",
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentData": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/YearlyPaymentData"
+                    }
+                },
+                "total_net_payment": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "total_fees": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "capitalized_interest": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "total_assessment": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentFormulaData": {
+            "properties": {
+                "origination_fee": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "lien_recording_fee": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "loan_loss_reserve": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "foreclosure_expense_reserve": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "annual_administrative_fee": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "issuance_delay": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "rate": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "SalespersonDetail": {
+            "properties": {
+                "contractor_code": {
+                    "default": "",
+                    "type": "string"
+                },
+                "title": {
+                    "default": "",
+                    "type": "string"
+                },
+                "first_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "last_name": {
+                    "default": "",
+                    "type": "string"
+                },
+                "phone": {
+                    "default": "",
+                    "type": "string"
+                },
+                "mobile": {
+                    "default": "",
+                    "type": "string"
+                },
+                "email": {
+                    "default": "",
+                    "type": "string"
+                },
+                "probationary": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "address1": {
+                    "default": "",
+                    "type": "string"
+                },
+                "address2": {
+                    "default": "",
+                    "type": "string"
+                },
+                "city": {
+                    "default": "",
+                    "type": "string"
+                },
+                "state": {
+                    "default": "",
+                    "type": "string"
+                },
+                "user_code": {
+                    "default": "",
+                    "type": "string"
+                },
+                "id": {
+                    "default": "int64",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "YearlyPaymentData": {
+            "properties": {
+                "date": {
+                    "default": "",
+                    "type": "string"
+                },
+                "payment": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "principal": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "interest": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "expenses": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "total": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "estimated_tax": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "net_payment": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "monthly_net_payment": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                },
+                "tax_deduction_payment": {
+                    "default": 0,
+                    "format": "float",
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about PACE Funding",
+        "url": "http://test.pacepowertools.com/"
+    },
+    "host": "test.pacepowertools.com/",
+    "info": {
+        "contact": {
+            "email": ""
+        },
+        "description": "",
+        "termsOfService": "http://swagger.io/terms/",
+        "title": "PACE Funding API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/add-contractor": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor title",
+                        "enum": [
+                            "Mr",
+                            "Mrs",
+                            "Miss"
+                        ],
+                        "in": "formData",
+                        "name": "title",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor first name",
+                        "in": "formData",
+                        "name": "first_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor last name",
+                        "in": "formData",
+                        "name": "last_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor Work number",
+                        "in": "formData",
+                        "name": "phone",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor Mobile Number",
+                        "in": "formData",
+                        "name": "mobile",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor Email id",
+                        "in": "formData",
+                        "name": "email",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor probationary 1=Yes or 0=No",
+                        "enum": [
+                            "1",
+                            "0"
+                        ],
+                        "in": "formData",
+                        "name": "probationary",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Contractor company name",
+                        "in": "formData",
+                        "name": "company_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Company website",
+                        "in": "formData",
+                        "name": "website",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Company phone number",
+                        "in": "formData",
+                        "name": "company_phone",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "License number",
+                        "in": "formData",
+                        "name": "license_number",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "License state",
+                        "in": "formData",
+                        "name": "license_state",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "License Expiration Date MM/DD/YYYY",
+                        "in": "formData",
+                        "name": "license_expiration",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Company Address Line 1",
+                        "in": "formData",
+                        "name": "company_address",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Company Address Line 2",
+                        "in": "formData",
+                        "name": "company_address2",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Company City",
+                        "in": "formData",
+                        "name": "company_city",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Company State",
+                        "in": "formData",
+                        "name": "company_state",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Company Pincode",
+                        "in": "formData",
+                        "name": "company_pincode",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Type",
+                        "in": "formData",
+                        "name": "project_type",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Administrator/Executive Contact Name",
+                        "in": "formData",
+                        "name": "administrator_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Add contractor response",
+                        "schema": {
+                            "$ref": "#/definitions/AddContractorResponse"
+                        }
+                    }
+                },
+                "summary": " ",
+                "tags": [
+                    "06. Create Contractor/Salesperson"
+                ]
+            }
+        },
+        "/add-salesperson": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person title",
+                        "enum": [
+                            "Mr",
+                            "Mrs",
+                            "Miss"
+                        ],
+                        "in": "formData",
+                        "name": "title",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person first name",
+                        "in": "formData",
+                        "name": "first_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person last name",
+                        "in": "formData",
+                        "name": "last_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person Work number",
+                        "in": "formData",
+                        "name": "phone",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person Mobile Number",
+                        "in": "formData",
+                        "name": "mobile",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person Email id",
+                        "in": "formData",
+                        "name": "email",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person Address Line 1",
+                        "in": "formData",
+                        "name": "address1",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person Address Line 2",
+                        "in": "formData",
+                        "name": "address2",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person city name",
+                        "in": "formData",
+                        "name": "city",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person State",
+                        "in": "formData",
+                        "name": "state",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Sales person probationary 1=Yes or 0=No",
+                        "enum": [
+                            "1",
+                            "0"
+                        ],
+                        "in": "formData",
+                        "name": "probationary",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Add salesperson response",
+                        "schema": {
+                            "$ref": "#/definitions/AddSalespersonResponse"
+                        }
+                    }
+                },
+                "summary": " ",
+                "tags": [
+                    "06. Create Contractor/Salesperson"
+                ]
+            }
+        },
+        "/check-address-eligibility": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Eligible Address",
+                        "in": "formData",
+                        "maxLength": 63,
+                        "name": "address",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Zipcode",
+                        "in": "formData",
+                        "name": "zipcode",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Check address eligibility response",
+                        "schema": {
+                            "$ref": "#/definitions/AddressEligibilityResponse"
+                        }
+                    }
+                },
+                "summary": "Check address eligibility.",
+                "tags": [
+                    "01. Address Eligibility"
+                ]
+            }
+        },
+        "/check-project-status": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Check project status",
+                        "schema": {
+                            "$ref": "#/definitions/ProjectStatusResponse"
+                        }
+                    }
+                },
+                "summary": " ",
+                "tags": [
+                    "11. Project Current Status"
+                ]
+            }
+        },
+        "/getting-calculate-payment": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "Calculate Payment",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "format": "int64",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Cost Of Project",
+                        "in": "formData",
+                        "name": "project_amount_est",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Term Of Assessment ",
+                        "in": "formData",
+                        "name": "term_of_assessment",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Estimated completion date format MM/DD/YYYY",
+                        "format": "dd/mm/yyyy",
+                        "in": "formData",
+                        "name": "completion_date",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Is there a 30% tax credit",
+                        "enum": [
+                            "yes",
+                            "no"
+                        ],
+                        "in": "formData",
+                        "name": "tax_credit",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Amount eligible for credit",
+                        "in": "formData",
+                        "name": "amount_eligible_for_credit",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Marginal tax rate",
+                        "in": "formData",
+                        "name": "tax_rate",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Payment calculation response",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentCalculationResponse"
+                        }
+                    }
+                },
+                "summary": "Calculate Payment",
+                "tags": [
+                    "02. Payment Calculate"
+                ]
+            }
+        },
+        "/post-application": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "Filled In Credit App",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "PACE Funding send the credit decision on notify url",
+                        "in": "formData",
+                        "name": "notify_url",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Property type",
+                        "enum": [
+                            "Single-Family",
+                            "Condo/Townhome",
+                            "Mobile Home",
+                            "Multi-Family"
+                        ],
+                        "in": "formData",
+                        "name": "property_type",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Property ownership",
+                        "enum": [
+                            "Individual",
+                            "Joint",
+                            "Trust",
+                            "Corporation or LLC",
+                            "Other"
+                        ],
+                        "in": "formData",
+                        "name": "property_ownership",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Property ownership name. If Property Ownership is Trust,Corporation or LLC,Other",
+                        "in": "formData",
+                        "name": "property_ownership_name",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner",
+                        "in": "formData",
+                        "name": "fo_first_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner",
+                        "in": "formData",
+                        "name": "fo_last_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner",
+                        "in": "formData",
+                        "name": "fo_suffix",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "(123-45-6789)First Property Owner",
+                        "in": "formData",
+                        "name": "fo_ssn",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "mm/dd/yyyy First Property Owner",
+                        "in": "formData",
+                        "name": "fo_dob",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner",
+                        "in": "formData",
+                        "name": "fo_email",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner",
+                        "in": "formData",
+                        "name": "fo_phone",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Same As Property Address-> First Property Owner",
+                        "enum": [
+                            "1",
+                            "0"
+                        ],
+                        "in": "formData",
+                        "name": "fo_same_as",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "fo_address",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "fo_state",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "fo_city",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "fo_zipcode",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "First Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "fo_unit",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner",
+                        "in": "formData",
+                        "name": "so_first_name",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner",
+                        "in": "formData",
+                        "name": "so_last_name",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner",
+                        "in": "formData",
+                        "name": "so_suffix",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "(123-45-6789) Second Property Owner",
+                        "in": "formData",
+                        "name": "so_ssn",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "mm/dd/yyyy Second Property Owner",
+                        "in": "formData",
+                        "name": "so_dob",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner",
+                        "in": "formData",
+                        "name": "so_email",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner",
+                        "in": "formData",
+                        "name": "so_phone",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Same As Property Address-> Second Property Owner",
+                        "enum": [
+                            "1",
+                            "0"
+                        ],
+                        "in": "formData",
+                        "name": "so_same_as",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "so_address",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "so_state",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "so_city",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "so_zipcode",
+                        "paramType": "form",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Second Property Owner Mailing Address",
+                        "in": "formData",
+                        "name": "so_unit",
+                        "paramType": "form",
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post application response",
+                        "schema": {
+                            "$ref": "#/definitions/PostApplicationResponse"
+                        }
+                    }
+                },
+                "summary": "Filled In Credit App",
+                "tags": [
+                    "04. Post Application"
+                ]
+            }
+        },
+        "/post-fni-result": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "Post Underwriting Result",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "A=>Approve,D=>Decline,R=>Review",
+                        "enum": [
+                            "A",
+                            "D",
+                            "R"
+                        ],
+                        "in": "formData",
+                        "name": "fni_status",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Approved Loan Amount",
+                        "in": "formData",
+                        "name": "auth_amount",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Transaction Id",
+                        "in": "formData",
+                        "name": "fni_transaction_id",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Reference Number",
+                        "in": "formData",
+                        "name": "fni_reference_number",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Property Units",
+                        "in": "formData",
+                        "name": "units",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Property Square Feet",
+                        "in": "formData",
+                        "name": "square_feet",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Property Assessed Value",
+                        "in": "formData",
+                        "name": "assessed_value",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Avm",
+                        "in": "formData",
+                        "name": "avm",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Apn",
+                        "in": "formData",
+                        "name": "apn",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Legal Description",
+                        "in": "formData",
+                        "name": "legal_description",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Municipality",
+                        "in": "formData",
+                        "name": "municipality",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "description": "County",
+                        "in": "formData",
+                        "name": "county",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "summary": "Post Underwriting Result",
+                "tags": [
+                    "07. Post Underwriting Result"
+                ]
+            }
+        },
+        "/post-project-cancellation": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "Post Project Cancellation Form",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "base64 encoded file",
+                        "in": "formData",
+                        "name": "file",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post project cancellation response",
+                        "schema": {
+                            "$ref": "#/definitions/PostProjectCancellationResponse"
+                        }
+                    }
+                },
+                "summary": "Post Project Cancellation Form",
+                "tags": [
+                    "09. Post Project Cancellation Form"
+                ]
+            }
+        },
+        "/post-project-file": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "Post Project File",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "File type",
+                        "enum": [
+                            "signed_work_contract",
+                            "signed_work_contract_modified",
+                            "permit",
+                            "permission_to_operate"
+                        ],
+                        "in": "formData",
+                        "name": "type",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "base64 encoded file",
+                        "in": "formData",
+                        "name": "file",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post project file response",
+                        "schema": {
+                            "$ref": "#/definitions/PostProjectFileResponse"
+                        }
+                    }
+                },
+                "summary": "Post Project File",
+                "tags": [
+                    "08. Post Project File"
+                ]
+            }
+        },
+        "/send-completion-certificate": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "Send Completion Certificate",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "First Property Owner client user id for docusign embedded signing. ",
+                        "in": "formData",
+                        "name": "fo_client_id",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Second Property Owner client user id for docusign embedded signing. ",
+                        "in": "formData",
+                        "name": "so_client_id",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor client user id for docusign embedded signing",
+                        "in": "formData",
+                        "name": "co_client_id",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Send completion certificate response",
+                        "schema": {
+                            "$ref": "#/definitions/SendCompletionCertificateResponse"
+                        }
+                    }
+                },
+                "summary": "Send Completion Certificate",
+                "tags": [
+                    "10. Send Completion Certificate"
+                ]
+            }
+        },
+        "/send-contract": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Term Of Assessment max 25 year ",
+                        "in": "formData",
+                        "name": "term_of_assessment",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "N=>New,E=>Edit,C=>Change",
+                        "enum": [
+                            "N",
+                            "E",
+                            "C"
+                        ],
+                        "in": "formData",
+                        "name": "type",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project type like Heat Pumps",
+                        "format": "int64",
+                        "in": "formData",
+                        "name": "equipments[0][project_type]",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Manufacturer",
+                        "format": "int64",
+                        "in": "formData",
+                        "name": "equipments[0][manufacturer]",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Model",
+                        "format": "int64",
+                        "in": "formData",
+                        "name": "equipments[0][model]",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "sku",
+                        "format": "int64",
+                        "in": "formData",
+                        "name": "equipments[0][sku]",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Quantity",
+                        "format": "int64",
+                        "in": "formData",
+                        "name": "equipments[0][quantity]",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "description": "Cost",
+                        "format": "int64",
+                        "in": "formData",
+                        "name": "equipments[0][cost]",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "First Property Owner client user id for docusign embedded signing. ",
+                        "in": "formData",
+                        "name": "fo_client_id",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Second Property Owner client user id for docusign embedded signing. ",
+                        "in": "formData",
+                        "name": "so_client_id",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor client user id for docusign embedded signing.When type is C",
+                        "in": "formData",
+                        "name": "co_client_id",
+                        "paramType": "form",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Send contract response",
+                        "schema": {
+                            "$ref": "#/definitions/SendContractResponse"
+                        }
+                    }
+                },
+                "summary": " ",
+                "tags": [
+                    "05. Contract"
+                ]
+            }
+        },
+        "/send-credit-application": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "description": "Send Credit Application ",
+                "parameters": [
+                    {
+                        "allowMultiple": false,
+                        "description": "Auth Key",
+                        "in": "formData",
+                        "name": "auth_key",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Contractor Code",
+                        "in": "formData",
+                        "name": "contractor_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "allowMultiple": false,
+                        "description": "Salesperson Code",
+                        "in": "formData",
+                        "name": "salesperson_code",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Project Id",
+                        "in": "formData",
+                        "name": "projectId",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "PACE Funding send the credit decision on notify url",
+                        "in": "formData",
+                        "name": "notify_url",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Email Address",
+                        "in": "formData",
+                        "name": "email_address",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Owner first Name",
+                        "in": "formData",
+                        "name": "owner_first_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "description": "Owner Last Name",
+                        "in": "formData",
+                        "name": "owner_last_name",
+                        "paramType": "form",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "summary": "Send Credit Application ",
+                "tags": [
+                    "03. Credit Application"
+                ]
+            }
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "tags": [
+        {
+            "description": "",
+            "name": "01. Address Eligibility"
+        },
+        {
+            "description": "",
+            "name": "02. Payment Calculation"
+        },
+        {
+            "description": "",
+            "name": "03. Credit Application"
+        },
+        {
+            "description": "",
+            "name": "04. Project Current Status"
+        },
+        {
+            "description": "",
+            "name": "05. Contract"
+        },
+        {
+            "description": "",
+            "name": "06. Create Contractor/Salesperson"
+        },
+        {
+            "description": "",
+            "name": "07. Post Underwriting Result"
+        },
+        {
+            "description": "",
+            "name": "08. Post Project File"
+        },
+        {
+            "description": "",
+            "name": "09. Post Project Cancellation Form"
+        },
+        {
+            "description": "",
+            "name": "10. Send Completion Certificate"
+        }
+    ]
+}

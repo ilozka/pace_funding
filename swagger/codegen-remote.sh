@@ -1,0 +1,1 @@
+curl -H "Content-type: application/json" -X POST -d '{"options": {"moduleName": "PaceFunding"},"swaggerUrl": "http://host/pace_funding_swagger.json"}' https://generator.swagger.io/api/gen/clients/ruby

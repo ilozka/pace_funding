@@ -39,10 +39,10 @@ module PaceFunding
     # @param project_id Project Id
     # @param file base64 encoded file
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PostProjectCancellationResponse]
     def post_project_cancellation_post(auth_key, contractor_code, salesperson_code, project_id, file, opts = {})
-      post_project_cancellation_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, file, opts)
-      return nil
+      data, _status_code, _headers = post_project_cancellation_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, file, opts)
+      return data
     end
 
     # Post Project Cancellation Form
@@ -53,7 +53,7 @@ module PaceFunding
     # @param project_id Project Id
     # @param file base64 encoded file
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    # @return [Array<(PostProjectCancellationResponse, Fixnum, Hash)>] PostProjectCancellationResponse data, response status code and response headers
     def post_project_cancellation_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, file, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: PostProjectCancellationFormApi.post_project_cancellation_post ..."
@@ -101,7 +101,8 @@ module PaceFunding
         :query_params => query_params,
         :form_params => form_params,
         :body => post_body,
-        :auth_names => auth_names)
+        :auth_names => auth_names,
+        :return_type => 'PostProjectCancellationResponse')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PostProjectCancellationFormApi#post_project_cancellation_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end

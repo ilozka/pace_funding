@@ -40,10 +40,10 @@ module PaceFunding
     # @param type File type
     # @param file base64 encoded file
     # @param [Hash] opts the optional parameters
-    # @return [nil]
+    # @return [PostProjectFileResponse]
     def post_project_file_post(auth_key, contractor_code, salesperson_code, project_id, type, file, opts = {})
-      post_project_file_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, type, file, opts)
-      return nil
+      data, _status_code, _headers = post_project_file_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, type, file, opts)
+      return data
     end
 
     # Post Project File
@@ -55,7 +55,7 @@ module PaceFunding
     # @param type File type
     # @param file base64 encoded file
     # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    # @return [Array<(PostProjectFileResponse, Fixnum, Hash)>] PostProjectFileResponse data, response status code and response headers
     def post_project_file_post_with_http_info(auth_key, contractor_code, salesperson_code, project_id, type, file, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug "Calling API: PostProjectFileApi.post_project_file_post ..."
@@ -106,7 +106,8 @@ module PaceFunding
         :query_params => query_params,
         :form_params => form_params,
         :body => post_body,
-        :auth_names => auth_names)
+        :auth_names => auth_names,
+        :return_type => 'PostProjectFileResponse')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PostProjectFileApi#post_project_file_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end

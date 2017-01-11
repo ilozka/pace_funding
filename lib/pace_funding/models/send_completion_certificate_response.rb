@@ -25,37 +25,32 @@ require 'date'
 
 module PaceFunding
 
-  class PaymentData
-    attr_accessor :data
+  class SendCompletionCertificateResponse
+    # Success or error message
+    attr_accessor :message
 
-    attr_accessor :total_net_payment
+    # 1 for success, 0 for API response error or invalid parameters
+    attr_accessor :status
 
-    attr_accessor :total_fees
-
-    attr_accessor :capitalized_interest
-
-    attr_accessor :total_assessment
+    # Docusign envelope id.
+    attr_accessor :envelope_id
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'data' => :'data',
-        :'total_net_payment' => :'total_net_payment',
-        :'total_fees' => :'total_fees',
-        :'capitalized_interest' => :'capitalized_interest',
-        :'total_assessment' => :'total_assessment'
+        :'message' => :'message',
+        :'status' => :'status',
+        :'envelope_id' => :'envelope_id'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'data' => :'Array<YearlyPaymentData>',
-        :'total_net_payment' => :'Float',
-        :'total_fees' => :'Float',
-        :'capitalized_interest' => :'Float',
-        :'total_assessment' => :'Float'
+        :'message' => :'Array<String>',
+        :'status' => :'Integer',
+        :'envelope_id' => :'String'
       }
     end
 
@@ -67,34 +62,22 @@ module PaceFunding
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
 
-      if attributes.has_key?(:'data')
-        if (value = attributes[:'data']).is_a?(Array)
-          self.data = value
+      if attributes.has_key?(:'message')
+        if (value = attributes[:'message']).is_a?(Array)
+          self.message = value
         end
       end
 
-      if attributes.has_key?(:'total_net_payment')
-        self.total_net_payment = attributes[:'total_net_payment']
+      if attributes.has_key?(:'status')
+        self.status = attributes[:'status']
       else
-        self.total_net_payment = 0.0
+        self.status = 1
       end
 
-      if attributes.has_key?(:'total_fees')
-        self.total_fees = attributes[:'total_fees']
+      if attributes.has_key?(:'envelope_id')
+        self.envelope_id = attributes[:'envelope_id']
       else
-        self.total_fees = 0.0
-      end
-
-      if attributes.has_key?(:'capitalized_interest')
-        self.capitalized_interest = attributes[:'capitalized_interest']
-      else
-        self.capitalized_interest = 0.0
-      end
-
-      if attributes.has_key?(:'total_assessment')
-        self.total_assessment = attributes[:'total_assessment']
-      else
-        self.total_assessment = 0.0
+        self.envelope_id = ""
       end
 
     end
@@ -117,11 +100,9 @@ module PaceFunding
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          data == o.data &&
-          total_net_payment == o.total_net_payment &&
-          total_fees == o.total_fees &&
-          capitalized_interest == o.capitalized_interest &&
-          total_assessment == o.total_assessment
+          message == o.message &&
+          status == o.status &&
+          envelope_id == o.envelope_id
     end
 
     # @see the `==` method
@@ -133,7 +114,7 @@ module PaceFunding
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [data, total_net_payment, total_fees, capitalized_interest, total_assessment].hash
+      [message, status, envelope_id].hash
     end
 
     # Builds the object from hash
